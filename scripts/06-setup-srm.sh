@@ -32,7 +32,7 @@ for file in userSettings.json userConfigurations.json; do
   log "installed $file"
 done
 
-log "SRM config deployed. To add your ROMs to Steam, open the GUI:"
-log "  distrobox enter $BOX_NAME -- steam-rom-manager   # Preview -> Generate app list -> Save app list"
-log "(the headless CLI 'steam-rom-manager add' hangs inside the container — use the GUI)"
-log "SRM closes Steam before writing and restarts it after (autoKillSteam)."
+log "SRM config deployed. To add your ROMs to Steam:"
+log "  distrobox enter $BOX_NAME -- steam -shutdown          # CLI hangs if Steam is running"
+log "  distrobox enter $BOX_NAME -- steam-rom-manager add    # headless: parse + save + artwork"
+log "or open the GUI (Preview -> Generate app list -> Save app list); it restarts Steam itself."

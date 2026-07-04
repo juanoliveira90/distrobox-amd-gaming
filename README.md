@@ -98,15 +98,18 @@ no emulator GUI, correct file globs). To (re)populate the library after adding
 ROMs:
 
 ```sh
-distrobox enter gaming -- steam-rom-manager   # or the host menu entry "(on gaming)"
-```
+distrobox enter gaming -- steam -shutdown          # CLI mode needs Steam closed first
+distrobox enter gaming -- steam-rom-manager add    # headless: parse + save + artwork
 
-then in the GUI: **Preview → Generate app list → Save app list**.
+distrobox enter gaming -- steam-rom-manager        # or the GUI (host menu entry works too):
+                                                   # Preview → Generate app list → Save app list
+```
 
 Notes:
 
-- SRM's headless CLI (`steam-rom-manager add`/`list`) hangs inside the
-  container (tested with 2.5.34) — use the GUI.
+- SRM's CLI hangs at "Fetching parsers..." while Steam is running (tested
+  with 2.5.34) — shut Steam down first, or use the GUI (which closes and
+  restarts Steam for you).
 
 - SRM closes Steam before writing shortcuts and restarts it afterwards
   (`autoKillSteam`/`autoRestartSteam` are enabled) — save your game first.
