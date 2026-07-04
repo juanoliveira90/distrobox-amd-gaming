@@ -1,0 +1,227 @@
+[
+  {
+    "parserType": "Glob",
+    "configTitle": "PlayStation 1 - DuckStation",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/PS1",
+    "steamCategories": ["PS1"],
+    "executableArgs": "-batch -fullscreen -nogui \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": ["sgdb", "steamCDN"],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "disabled": false,
+    "userAccounts": {
+      "specifiedAccounts": ["Global"]
+    },
+    "executable": {
+      "path": "/usr/bin/duckstation-qt",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": false
+    },
+    "parserInputs": {
+      "glob": "**/${title}@(.cue|.CUE|.chd|.CHD|.m3u|.M3U|.pbp|.PBP)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+      "sgdb": {
+        "nsfw": false,
+        "humor": false,
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": [],
+        "imageMotionTypes": ["static"]
+      }
+    },
+    "parserId": "175160000000000001",
+    "version": 22,
+    "controllers": {
+      "ps4": null,
+      "ps5": null,
+      "xbox360": null,
+      "xboxone": null,
+      "switch_joycon_left": null,
+      "switch_joycon_right": null,
+      "switch_pro": null,
+      "neptune": null
+    },
+    "defaultImage": {
+      "long": "",
+      "tall": "",
+      "hero": "",
+      "logo": "",
+      "icon": ""
+    },
+    "localImages": {
+      "long": "",
+      "tall": "",
+      "hero": "",
+      "logo": "",
+      "icon": ""
+    },
+    "steamInputEnabled": "1",
+    "drmProtect": false
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "PlayStation 2 - PCSX2",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/PS2",
+    "steamCategories": ["PS2"],
+    "executableArgs": "-batch -fullscreen -nogui \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": ["sgdb", "steamCDN"],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "disabled": false,
+    "userAccounts": {
+      "specifiedAccounts": ["Global"]
+    },
+    "executable": {
+      "path": "/usr/bin/pcsx2-qt",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": false
+    },
+    "parserInputs": {
+      "glob": "**/${title}@(.iso|.ISO|.chd|.CHD|.cso|.CSO|.gz|.GZ|.zso|.ZSO)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+      "sgdb": {
+        "nsfw": false,
+        "humor": false,
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": [],
+        "imageMotionTypes": ["static"]
+      }
+    },
+    "parserId": "175160000000000002",
+    "version": 22,
+    "controllers": {
+      "ps4": null,
+      "ps5": null,
+      "xbox360": null,
+      "xboxone": null,
+      "switch_joycon_left": null,
+      "switch_joycon_right": null,
+      "switch_pro": null,
+      "neptune": null
+    },
+    "defaultImage": {
+      "long": "",
+      "tall": "",
+      "hero": "",
+      "logo": "",
+      "icon": ""
+    },
+    "localImages": {
+      "long": "",
+      "tall": "",
+      "hero": "",
+      "logo": "",
+      "icon": ""
+    },
+    "steamInputEnabled": "1",
+    "drmProtect": false
+  },
+  {
+    "parserType": "Glob",
+    "configTitle": "PlayStation 3 - RPCS3",
+    "steamDirectory": "${steamdirglobal}",
+    "romDirectory": "${romsdirglobal}/PS3",
+    "steamCategories": ["PS3"],
+    "executableArgs": "--no-gui \"${filePath}\"",
+    "executableModifier": "\"${exePath}\"",
+    "startInDirectory": "",
+    "titleModifier": "${fuzzyTitle}",
+    "imageProviders": ["sgdb", "steamCDN"],
+    "onlineImageQueries": "${${fuzzyTitle}}",
+    "imagePool": "${fuzzyTitle}",
+    "disabled": false,
+    "userAccounts": {
+      "specifiedAccounts": ["Global"]
+    },
+    "executable": {
+      "path": "/usr/bin/rpcs3",
+      "shortcutPassthrough": false,
+      "appendArgsToExecutable": false
+    },
+    "parserInputs": {
+      "glob": "**/${title}/PS3_GAME/USRDIR/@(eboot.bin|EBOOT.BIN|ISO.BIN.EDAT|iso.bin.edat)"
+    },
+    "titleFromVariable": {
+      "limitToGroups": "",
+      "caseInsensitiveVariables": false,
+      "skipFileIfVariableWasNotFound": false
+    },
+    "fuzzyMatch": {
+      "replaceDiacritics": true,
+      "removeCharacters": true,
+      "removeBrackets": true
+    },
+    "imageProviderAPIs": {
+      "sgdb": {
+        "nsfw": false,
+        "humor": false,
+        "styles": [],
+        "stylesHero": [],
+        "stylesLogo": [],
+        "stylesIcon": [],
+        "imageMotionTypes": ["static"]
+      }
+    },
+    "parserId": "175160000000000003",
+    "version": 22,
+    "controllers": {
+      "ps4": null,
+      "ps5": null,
+      "xbox360": null,
+      "xboxone": null,
+      "switch_joycon_left": null,
+      "switch_joycon_right": null,
+      "switch_pro": null,
+      "neptune": null
+    },
+    "defaultImage": {
+      "long": "",
+      "tall": "",
+      "hero": "",
+      "logo": "",
+      "icon": ""
+    },
+    "localImages": {
+      "long": "",
+      "tall": "",
+      "hero": "",
+      "logo": "",
+      "icon": ""
+    },
+    "steamInputEnabled": "1",
+    "drmProtect": false
+  }
+]

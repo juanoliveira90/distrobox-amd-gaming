@@ -14,6 +14,8 @@ AMD/RADV-first design (no NVIDIA workarounds needed).
 - **Emulation**: PCSX2 (PS2), DuckStation (PS1), RPCS3 (PS3)
 - BIOS symlinks from your games drive into each emulator, RPCS3 firmware
   install from `PS3UPDAT.PUP` (if present in your BIOS folder)
+- **Steam ROM Manager** preconfigured with PS1/PS2/PS3 parsers, so emulated
+  games show up in the Steam library (and Big Picture) with proper artwork
 - Host application-menu entries for everything via `distrobox-export`
 
 ## Quick start
@@ -33,6 +35,7 @@ script under `scripts/`) whenever you change `config/gaming.env`.
 | `scripts/03-link-storage.sh` | BIOS links, `~/Games` symlink, PS3 firmware |
 | `scripts/04-export-apps.sh` | export launchers to the host menu |
 | `scripts/05-verify.sh` | post-setup assertions (RADV, binaries, links) |
+| `scripts/06-setup-srm.sh` | deploy Steam ROM Manager parser configs |
 
 ## Configuration
 
@@ -83,6 +86,38 @@ distrobox enter gaming                    # or just get a shell inside the box
 ROMs are visible inside the box at the same path as on the host, and via the
 `~/Games` symlink in the box home. BIOS files are already linked, so the
 emulators find them without any setup.
+
+### Adding ROMs to Steam (console-style library)
+
+Steam ROM Manager (SRM) turns the ROM folders on the games drive into Steam
+shortcuts with SteamGridDB artwork, so PS1/PS2/PS3 games sit next to native
+games in the library and are fully navigable with a controller in Big Picture.
+
+`06-setup-srm.sh` already deployed parsers for the three emulators (fullscreen,
+no emulator GUI, correct file globs). To (re)populate the library after adding
+ROMs:
+
+```sh
+distrobox enter gaming -- steam-rom-manager   # or the host menu entry "(on gaming)"
+```
+
+then in the GUI: **Preview → Generate app list → Save app list**.
+
+Notes:
+
+- SRM's headless CLI (`steam-rom-manager add`/`list`) hangs inside the
+  container (tested with 2.5.34) — use the GUI.
+
+- SRM closes Steam before writing shortcuts and restarts it afterwards
+  (`autoKillSteam`/`autoRestartSteam` are enabled) — save your game first.
+- Parser configs live in `config/srm/` and are rendered with your
+  `GAMES_ROOT`/`BOX_HOME` by `06-setup-srm.sh`. Edits made in the SRM GUI are
+  backed up (`*.bak.<timestamp>`) before being overwritten on re-run.
+- ROM layout expected: `PS1/<game>/<game>.cue` (or `.chd/.m3u/.pbp`),
+  `PS2/<game>.iso` (or `.chd/.cso/.gz/.zso`), and PS3 games as extracted
+  folders containing `PS3_GAME/USRDIR/EBOOT.BIN`.
+- Heroic and Lutris games don't need SRM: use "Add to Steam" in Heroic and
+  "Create Steam shortcut" in Lutris.
 
 ### Controllers
 
