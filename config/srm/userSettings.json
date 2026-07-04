@@ -1,0 +1,39 @@
+{
+  "fuzzyMatcher": {
+    "timestamps": {
+      "check": 0,
+      "download": 0
+    },
+    "verbose": false,
+    "filterProviders": true
+  },
+  "environmentVariables": {
+    "steamDirectory": "@STEAM_DIR@",
+    "romsDirectory": "@ROMS_DIR@",
+    "retroarchPath": "",
+    "raCoresDirectory": "",
+    "localImagesDirectory": "",
+    "userAccounts": []
+  },
+  "previewSettings": {
+    "imageLoadStrategy": "loadLazy",
+    "retrieveCurrentSteamImages": true,
+    "disableCategories": false,
+    "deleteDisabledShortcuts": false,
+    "imageZoomPercentage": 30,
+    "hideUserAccount": false
+  },
+  "enabledProviders": ["sgdb", "steamCDN"],
+  "language": "en-US",
+  "offlineMode": false,
+  "navigationWidth": 256,
+  "clearLogOnTest": false,
+  "version": 10,
+  "theme": "Deck",
+  "dnsServers": [],
+  "batchDownloadSize": 50,
+  "emudeckInstall": false,
+  "autoUpdate": false,
+  "autoKillSteam": true,
+  "autoRestartSteam": true
+}

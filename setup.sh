@@ -9,7 +9,8 @@ for script in scripts/00-check-host.sh \
               scripts/02-install-packages.sh \
               scripts/03-link-storage.sh \
               scripts/04-export-apps.sh \
-              scripts/05-verify.sh; do
+              scripts/05-verify.sh \
+              scripts/06-setup-srm.sh; do
   echo
   echo "==> $script"
   bash "$script"
