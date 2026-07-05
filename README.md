@@ -17,6 +17,8 @@ AMD/RADV-first design (no NVIDIA workarounds needed).
 - **Steam ROM Manager** preconfigured with PS1/PS2/PS3 parsers, so emulated
   games show up in the Steam library (and Big Picture) with proper artwork
 - Host application-menu entries for everything via `distrobox-export`
+- A shell hook that runs `distrobox enter` under `systemd-inhibit`, so the
+  screen never blanks and the system never suspends during a session
 
 ## Quick start
 
@@ -36,6 +38,7 @@ script under `scripts/`) whenever you change `config/gaming.env`.
 | `scripts/04-export-apps.sh` | export launchers to the host menu |
 | `scripts/05-verify.sh` | post-setup assertions (RADV, binaries, links) |
 | `scripts/06-setup-srm.sh` | deploy Steam ROM Manager parser configs |
+| `scripts/07-setup-shell-hook.sh` | wrap `distrobox enter` in `systemd-inhibit` (no display sleep mid-game) |
 
 ## Configuration
 
@@ -82,6 +85,14 @@ distrobox enter gaming -- rpcs3           # RPCS3 (PS3)
 
 distrobox enter gaming                    # or just get a shell inside the box
 ```
+
+> Every `distrobox enter` runs under `systemd-inhibit` (`idle:sleep`) thanks to
+> the shell hook installed by `07-setup-shell-hook.sh`, so the display won't
+> blank and the machine won't suspend for as long as the session is open. It's
+> a transparent wrapper — pass any arguments you like; non-`enter` subcommands
+> run unchanged. Launching from the host menu bypasses the hook, so use the
+> terminal (or `steam -tenfoot`/Big Picture, which inhibits on its own) for
+> long controller-only sessions.
 
 ROMs are visible inside the box at the same path as on the host, and via the
 `~/Games` symlink in the box home. BIOS files are already linked, so the

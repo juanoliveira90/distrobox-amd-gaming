@@ -10,7 +10,8 @@ for script in scripts/00-check-host.sh \
               scripts/03-link-storage.sh \
               scripts/04-export-apps.sh \
               scripts/05-verify.sh \
-              scripts/06-setup-srm.sh; do
+              scripts/06-setup-srm.sh \
+              scripts/07-setup-shell-hook.sh; do
   echo
   echo "==> $script"
   bash "$script"
