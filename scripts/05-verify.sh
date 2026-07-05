@@ -22,7 +22,7 @@ else
   fail=1
 fi
 
-for bin in pcsx2-qt duckstation-qt rpcs3 steam heroic lutris mangohud gamemoderun gamescope; do
+for bin in pcsx2-qt duckstation-qt rpcs3 steam heroic lutris mangohud gamescope; do
   check "$bin in box" in_box which "$bin"
 done
 

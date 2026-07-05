@@ -10,7 +10,7 @@ AMD/RADV-first design (no NVIDIA workarounds needed).
 - Distrobox `gaming` from `docker.io/cachyos/cachyos-v3:latest` with a
   dedicated home at `~/distrobox/gaming`
 - **Native gaming**: Steam, proton-cachyos, Heroic, Lutris, wine, winetricks,
-  protontricks, gamemode, mangohud, gamescope (all with lib32 Vulkan/RADV)
+  protontricks, mangohud, gamescope (all with lib32 Vulkan/RADV)
 - **Emulation**: PCSX2 (PS2), DuckStation (PS1), RPCS3 (PS3)
 - BIOS symlinks from your games drive into each emulator, RPCS3 firmware
   install from `PS3UPDAT.PUP` (if present in your BIOS folder)
@@ -103,14 +103,14 @@ sudo pacman -S game-devices-udev    # CachyOS/AUR; on other distros: steam-devic
 Then reconnect the controller. Without this, plain controller input still
 works, but Steam Input features fail silently.
 
-### MangoHud and gamemode
+### MangoHud
 
-Both are wrappers around a game, not apps you open:
+MangoHud is a wrapper around a game, not an app you open:
 
 - **Steam**: right-click a game → Properties → Launch Options:
-  `mangohud gamemoderun %command%`
-- **Heroic**: game settings → toggle "Use GameMode" and "MangoHud"
-- **Lutris**: game → Configure → System options → same toggles
+  `mangohud %command%`
+- **Heroic**: game settings → toggle "MangoHud"
+- **Lutris**: game → Configure → System options → same toggle
 - **Emulators / anything else**: prefix the command, e.g.
   `distrobox enter gaming -- mangohud pcsx2-qt`
 
