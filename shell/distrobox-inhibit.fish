@@ -13,7 +13,7 @@ function distrobox --wraps distrobox
             --who="distrobox-gaming" \
             --why="Gaming session — keep screen and system awake" \
             --mode=block \
-            command distrobox $argv
+            (command -s distrobox) $argv
     else
         command distrobox $argv
     end

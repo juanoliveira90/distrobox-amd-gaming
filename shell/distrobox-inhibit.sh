@@ -14,7 +14,7 @@ distrobox() {
       --who="distrobox-gaming" \
       --why="Gaming session — keep screen and system awake" \
       --mode=block \
-      command distrobox "$@"
+      "$(command -v distrobox)" "$@"
   else
     command distrobox "$@"
   fi
