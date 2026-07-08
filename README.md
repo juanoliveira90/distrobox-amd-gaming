@@ -10,7 +10,7 @@ AMD/RADV-first design (no NVIDIA workarounds needed).
 - Distrobox `gaming` from `docker.io/cachyos/cachyos-v3:latest` with a
   dedicated home at `~/distrobox/gaming`
 - **Native gaming**: Steam, proton-cachyos, Heroic, Lutris, wine, winetricks,
-  protontricks, mangohud, gamescope (all with lib32 Vulkan/RADV)
+  protontricks, mangohud, GOverlay, gamescope (all with lib32 Vulkan/RADV)
 - **Emulation**: PCSX2 (PS2), DuckStation (PS1), RPCS3 (PS3)
 - BIOS symlinks from your games drive into each emulator, RPCS3 firmware
   install from `PS3UPDAT.PUP` (if present in your BIOS folder)
@@ -71,7 +71,7 @@ The scripts never hardcode paths — changing `GAMES_ROOT` and re-running
 
 The normal way is the **host application menu**: every app was exported and
 shows up with an "(on gaming)" suffix — Steam, Heroic, Lutris, PCSX2,
-DuckStation, RPCS3. Click and play; no terminal needed.
+DuckStation, RPCS3, GOverlay. Click and play; no terminal needed.
 
 From a terminal, the equivalents are:
 
@@ -162,6 +162,11 @@ MangoHud is a wrapper around a game, not an app you open:
 - **Lutris**: game → Configure → System options → same toggle
 - **Emulators / anything else**: prefix the command, e.g.
   `distrobox enter gaming -- mangohud pcsx2-qt`
+
+To configure what the overlay shows (FPS, frametime, temps, position, etc.),
+use **GOverlay** — a GUI editor for MangoHud's config. Launch it from the host
+menu ("GOverlay (on gaming)") or with `distrobox enter gaming -- goverlay`;
+changes apply to every game that runs with MangoHud.
 
 ### After a reboot
 
