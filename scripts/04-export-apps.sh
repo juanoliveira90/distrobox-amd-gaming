@@ -4,8 +4,11 @@ source "$(dirname "$0")/../lib/common.sh"
 
 box_exists || die "box '$BOX_NAME' does not exist — run 01-create-box.sh first"
 
+# Match the way distrobox-export finds entries: against the Exec=/Name= lines
+# inside the desktop files, not the file names (org.es_de.frontend.desktop
+# would never match 'es-de' by name, but its Exec line does).
 for app in "${EXPORT_APPS[@]}"; do
-  if ! in_box bash -c "ls /usr/share/applications | grep -qi -- '$app'"; then
+  if ! in_box bash -c "grep -qsie 'Exec=.*$app' -e 'Name=.*$app' /usr/share/applications/*.desktop"; then
     warn "no desktop entry matching '$app' in box — skipping export"
     continue
   fi

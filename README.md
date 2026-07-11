@@ -16,6 +16,9 @@ AMD/RADV-first design (no NVIDIA workarounds needed).
   install from `PS3UPDAT.PUP` (if present in your BIOS folder)
 - **Steam ROM Manager** preconfigured with PS1/PS2/PS3 parsers, so emulated
   games show up in the Steam library (and Big Picture) with proper artwork
+- **ES-DE** (EmulationStation Desktop Edition), a controller-first emulation
+  frontend, with the ROM folders wired up to the games drive and
+  DuckStation/PCSX2/RPCS3 preselected as the launchers
 - Host application-menu entries for everything via `distrobox-export`
 - A shell hook that runs `distrobox enter` under `systemd-inhibit`, so the
   screen never blanks and the system never suspends during a session
@@ -39,6 +42,7 @@ script under `scripts/`) whenever you change `config/gaming.env`.
 | `scripts/05-verify.sh` | post-setup assertions (RADV, binaries, links) |
 | `scripts/06-setup-srm.sh` | deploy Steam ROM Manager parser configs |
 | `scripts/07-setup-shell-hook.sh` | wrap `distrobox enter` in `systemd-inhibit` (no display sleep mid-game) |
+| `scripts/08-setup-esde.sh` | link ROMs into ES-DE's library and preselect the standalone emulators |
 
 ## Configuration
 
@@ -71,7 +75,7 @@ The scripts never hardcode paths — changing `GAMES_ROOT` and re-running
 
 The normal way is the **host application menu**: every app was exported and
 shows up with an "(on gaming)" suffix — Steam, Heroic, Lutris, PCSX2,
-DuckStation, RPCS3, GOverlay. Click and play; no terminal needed.
+DuckStation, RPCS3, ES-DE, GOverlay. Click and play; no terminal needed.
 
 From a terminal, the equivalents are:
 
@@ -82,6 +86,7 @@ distrobox enter gaming -- lutris          # Lutris
 distrobox enter gaming -- pcsx2-qt        # PCSX2 (PS2)
 distrobox enter gaming -- duckstation-qt  # DuckStation (PS1)
 distrobox enter gaming -- rpcs3           # RPCS3 (PS3)
+distrobox enter gaming -- es-de           # ES-DE (emulation frontend)
 
 distrobox enter gaming                    # or just get a shell inside the box
 ```
@@ -132,6 +137,41 @@ Notes:
   folders containing `PS3_GAME/USRDIR/EBOOT.BIN`.
 - Heroic and Lutris games don't need SRM: use "Add to Steam" in Heroic and
   "Create Steam shortcut" in Lutris.
+
+### ES-DE (dedicated emulation frontend)
+
+ES-DE is the console-style alternative to the Steam/SRM route: a fullscreen,
+controller-first library that scans the ROM folders itself and launches the
+emulators directly — no Steam involved. Both routes coexist fine; use
+whichever you prefer. Launch it from the host menu ("ES-DE (on gaming)") or
+with `distrobox enter gaming -- es-de`.
+
+`08-setup-esde.sh` already did the wiring, all inside `BOX_HOME` (the games
+drive is never modified):
+
+- ES-DE's ROM library (`~/ROMs` in the box) is built from symlinks into
+  `GAMES_ROOT`: `ps2` points at the whole `PS2/` folder, while PS1 and PS3
+  get one link per game. PS1 links are named after the launch file
+  (`Game.cue`, `Game.m3u`, …) and PS3 links carry the `.ps3` suffix ES-DE
+  requires — this uses ES-DE's "directories interpreted as files" feature, so
+  each multi-file game shows as a single entry instead of one per `.bin`
+  track.
+- The standalone emulators (DuckStation, PCSX2, "RPCS3 Directory") are
+  preselected per system, because ES-DE's defaults for PS1/PS2 are RetroArch
+  cores that aren't installed in this box.
+
+Day-to-day notes:
+
+- After adding PS1 or PS3 games, re-run `scripts/08-setup-esde.sh` to create
+  the new links (PS2 needs nothing — its folder link picks up new files).
+  Existing links, settings, and gamelists are never touched.
+- For box art and metadata, use ES-DE's built-in scraper (Main menu →
+  Scraper). ScreenScraper works anonymously but is much faster with a free
+  account, entered under Scraper → Account settings.
+- BIOS files need no setup here either — the emulators themselves were
+  already pointed at them by `03-link-storage.sh`.
+- If a game refuses to launch, test the same emulator entry outside ES-DE
+  first; ES-DE only runs the emulators, it doesn't emulate anything itself.
 
 ### Controllers
 

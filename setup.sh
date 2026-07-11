@@ -11,7 +11,8 @@ for script in scripts/00-check-host.sh \
               scripts/04-export-apps.sh \
               scripts/05-verify.sh \
               scripts/06-setup-srm.sh \
-              scripts/07-setup-shell-hook.sh; do
+              scripts/07-setup-shell-hook.sh \
+              scripts/08-setup-esde.sh; do
   echo
   echo "==> $script"
   bash "$script"
