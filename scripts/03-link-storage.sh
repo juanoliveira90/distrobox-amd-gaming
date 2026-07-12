@@ -5,6 +5,11 @@ source "$(dirname "$0")/../lib/common.sh"
 
 box_exists || die "box '$BOX_NAME' does not exist — run 01-create-box.sh first"
 
+if [ -z "$GAMES_ROOT" ]; then
+  log "GAMES_ROOT not set — skipping storage linking"
+  exit 0
+fi
+
 # Convenience symlink in the box home (link lives on btrfs, target on NTFS).
 if [ ! -e "$BOX_HOME/Games" ]; then
   ln -s "$GAMES_ROOT" "$BOX_HOME/Games"

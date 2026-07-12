@@ -5,6 +5,11 @@ source "$(dirname "$0")/../lib/common.sh"
 
 box_exists || die "box '$BOX_NAME' does not exist — run 01-create-box.sh first"
 
+if [ -z "$GAMES_ROOT" ]; then
+  log "GAMES_ROOT not set — skipping Steam ROM Manager setup"
+  exit 0
+fi
+
 if ! in_box pacman -Qq steam-rom-manager-bin >/dev/null 2>&1; then
   warn "steam-rom-manager-bin is not installed — run 02-install-packages.sh first"
   exit 0

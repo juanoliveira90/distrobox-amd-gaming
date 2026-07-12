@@ -47,12 +47,17 @@ package/export lists. Edit it before running `setup.sh`:
 
 ```sh
 BOX_HOME=$HOME/distrobox/gaming            # dedicated home for the box
-GAMES_ROOT=/run/media/$USER/HDD/Games      # where your ROMs/games live
+GAMES_ROOT=/run/media/$USER/HDD/Games      # where your ROMs/games live (optional)
 BIOS_ROOT=$GAMES_ROOT/Bios                 # BIOS files (flat or one level of subdirs)
 ```
 
 The scripts never hardcode paths — changing `GAMES_ROOT` and re-running
 `setup.sh` is all it takes to point at a different drive.
+
+`GAMES_ROOT` is optional: leave it empty (`GAMES_ROOT=`) or comment it out if
+you don't keep games on a separate drive. The mount check, the volume mount
+into the box, the `~/Games` symlink, BIOS linking and the Steam ROM Manager
+setup are all skipped in that case — everything else works as usual.
 
 ## Storage caveats
 
