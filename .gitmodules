@@ -1,0 +1,3 @@
+[submodule "gamemode/gamemode/SDL"]
+	path = gamemode/gamemode/SDL
+	url = https://github.com/libsdl-org/SDL
