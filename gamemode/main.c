@@ -3,6 +3,7 @@
 
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include <stdlib.h>
 
 int main(int argc, char* argv[]) {
 
@@ -114,8 +115,7 @@ int main(int argc, char* argv[]) {
         
 
         if (confirmed == 0 ) { // yes
-            // kill session
-            // switch session
+            system("distrobox enter linux-gaming -- sudo openvt -c 3 -s -w -- /usr/bin/gamescope -w 1920 -h 1080 -r 144 -f -- /usr/bin/steam -tenfoot");
             return 0;
         }
         else if (confirmed == 1) { // no
