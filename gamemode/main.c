@@ -1,13 +1,10 @@
-// Example program:
-// Using SDL3 to create an application window
-
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #include <stdlib.h>
 
 int main(int argc, char* argv[]) {
 
-    SDL_Window *window;                    // Declare a pointer
+    SDL_Window *window;                  
     SDL_Renderer *renderer;
 
     int selected = 0;
@@ -19,17 +16,14 @@ int main(int argc, char* argv[]) {
 
     SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL3
 
-    // Create an application window with the following settings:
     window = SDL_CreateWindow(
-        "An SDL3 window",                  // window title
-        640,                               // width, in pixels
-        480,                               // height, in pixels
-        SDL_WINDOW_OPENGL                  // flags - see below
+        "Game mode Prompt",                  
+        640,                               
+        480,                               
+        SDL_WINDOW_OPENGL                  
     );
 
-    // Check that the window was successfully created
     if (window == NULL) {
-        // In the case that the window could not be made...
         SDL_LogError(SDL_LOG_CATEGORY_ERROR, "Could not create window: %s\n", SDL_GetError());
         return 1;
     }
@@ -45,12 +39,14 @@ int main(int argc, char* argv[]) {
                     done = true;
                     break;
                 
+                // Keyboard
                 case SDL_EVENT_KEY_DOWN:
                     if (event.key.key == SDLK_UP)       selected = 0;
                     if (event.key.key == SDLK_DOWN)     selected = 1;
                     if (event.key.key == SDLK_RETURN)   confirmed = selected;
                     break;
 
+                // Gamepad
                 case SDL_EVENT_GAMEPAD_ADDED:
                     SDL_OpenGamepad(event.gdevice.which);
                     break;
