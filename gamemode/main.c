@@ -1,14 +1,18 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-int main(int argc, char* argv[]) {
+void draw_first_prompt(SDL_Renderer *renderer, int char_size, int selected);
+void draw_second_prompt(SDL_Renderer *renderer, int char_size, int selected);
 
+int main() {
     SDL_Window *window;                  
     SDL_Renderer *renderer;
 
     int selected = 0;
     int confirmed = -1;
+    int prompt_page = 0;
 
     const int char_size = 8;
 
@@ -59,11 +63,51 @@ int main(int argc, char* argv[]) {
             }
         }
 
+        if (confirmed != -1) {
+            if (prompt_page == 0) {
+                if (confirmed == 1) { // no
+                    done = true;
+                }
+                else { // yes
+                    prompt_page = 1;
+                    selected = 0;
+                }
+            }
+            else {
+                if (confirmed == 0) { // steam
+                    system("sudo systemctl start gamemode-steam.service");
+                }
+                else { // es-de
+                    system("sudo systemctl start gamemode-esde.service");
+                }
+                done = true;
+            }
+            confirmed = -1;
+        }
+
+        if (prompt_page == 0) {
+            draw_first_prompt(renderer, char_size, selected);
+        }
+        else {
+            draw_second_prompt(renderer, char_size, selected);
+        }
+
+        SDL_Delay(16);
+    }
+    // Close and destroy the window
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+
+    // Clean up
+    SDL_Quit();
+    return 0;
+}
+
+void draw_first_prompt(SDL_Renderer *renderer, int char_size, int selected) {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
         SDL_RenderClear(renderer);
 
         SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-        
         // Upper dialog
         char* upper_dialog_str = "Are you sure you wanna";
         char* upper_dialog_str1 = "switch to Game Mode?";
@@ -94,8 +138,8 @@ int main(int argc, char* argv[]) {
 
      
         // Lower dialog
-        char* lower_dialog_str = "This will kill the current session!";
-        char* lower_dialog_str1 = "See `readme.md` for details";
+        char* lower_dialog_str = "This will open a new session!";
+        char* lower_dialog_str1 = "I recommend closing unnecessary applications :)";
     
         int lower_x = (1280/2 - strlen(lower_dialog_str) * char_size) / 2;
         int lower_y = (1600/2 - 2 * char_size) / 2;
@@ -106,24 +150,39 @@ int main(int argc, char* argv[]) {
         SDL_SetRenderScale(renderer, 1.0f, 1.0f);
         SDL_RenderDebugText(renderer, lower_x, lower_y, lower_dialog_str);  
         SDL_RenderDebugText(renderer, lower_x1, lower_y1, lower_dialog_str1);
-
-        SDL_RenderPresent(renderer);
         
+        SDL_RenderPresent(renderer);
+}
 
-        if (confirmed == 0 ) { // yes
-            system("sudo systemctl start gamemode.service");
-            return 0;
-        }
-        else if (confirmed == 1) { // no
-            done = true;
-        } 
-    }
-
-    // Close and destroy the window
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-
-    // Clean up
-    SDL_Quit();
-    return 0;
+void draw_second_prompt(SDL_Renderer *renderer, int char_size, int selected) {
+        // clear screen
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+        SDL_RenderClear(renderer);
+    
+        SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+        
+        // draw
+        char* upper_dialog_str = "Choose your gaming front end";
+        
+        int upper_x = (640/2 - strlen(upper_dialog_str) * char_size) / 2;
+        int upper_y = (480/2 - strlen(upper_dialog_str) * char_size) / 2;
+    
+        SDL_SetRenderScale(renderer, 2.0f, 2.0f);
+        SDL_RenderDebugText(renderer, upper_x, upper_y + 30, upper_dialog_str);
+    
+        // Options        
+        char* opt = selected == 0 ? "Steam Big Picture *" : "Steam Big Picture";
+        char* opt2 = selected == 1 ? "ES-DE *" : "ES-DE";
+    
+        int middle_x = (640/2 - strlen(opt) * char_size) / 2;
+        int middle_y = (480/2 - 2 * 8) / 2;
+    
+        int middle_x1 = (640/2 - strlen(opt2) * char_size) / 2;
+        int middle_y1 = (480/2 - 2 * 8) / 2;
+        
+        SDL_RenderDebugText(renderer, middle_x, middle_y, opt);
+        SDL_RenderDebugText(renderer, middle_x1, middle_y1 + 16, opt2);
+    
+        // render again
+        SDL_RenderPresent(renderer);
 }
