@@ -1,7 +1,6 @@
-# distrobox-gaming
+# Distrobox for gaming
 
-A distrobox dedicated to gaming (native + emulation) on a CachyOS host with an
-AMD GPU. Inspired by [akitaonrails/distrobox-gaming](https://github.com/akitaonrails/distrobox-gaming),
+A distrobox dedicated to gaming (native and emulation), a nice tool to avoid package conflicts and not mix work files with game files. Inspired by [akitaonrails/distrobox-gaming](https://github.com/akitaonrails/distrobox-gaming), 
 rebuilt as plain shell scripts with the CachyOS container image and an
 AMD/RADV-first design (no NVIDIA workarounds needed).
 
@@ -9,10 +8,10 @@ AMD/RADV-first design (no NVIDIA workarounds needed).
 
 - Distrobox `gaming` from `docker.io/cachyos/cachyos-v3:latest` with a
   dedicated home at `~/distrobox/gaming`
-- **Native gaming**: Steam, proton-cachyos, Heroic, Lutris, wine, winetricks,
+- **Native gaming**: Steam, ES-DE, Heroic, proton-cachyos, Lutris,wine, winetricks,
   protontricks, mangohud, GOverlay, gamescope (all with lib32 Vulkan/RADV)
-- **Emulation**: PCSX2 (PS2), DuckStation (PS1), RPCS3 (PS3)
-- BIOS symlinks from your games drive into each emulator, RPCS3 firmware
+- **Emulation**: PCSX2 (PS2), DuckStation (PS1), RPCS3 (PS3), ES-DE
+- BIOS symlinks from your bios folder, RPCS3 firmware
   install from `PS3UPDAT.PUP` (if present in your BIOS folder)
 - **Steam ROM Manager** preconfigured with PS1/PS2/PS3 parsers, so emulated
   games show up in the Steam library (and Big Picture) with proper artwork
@@ -47,17 +46,17 @@ package/export lists. Edit it before running `setup.sh`:
 
 ```sh
 BOX_HOME=$HOME/distrobox/gaming            # dedicated home for the box
-GAMES_ROOT=/run/media/$USER/HDD/Games      # where your ROMs/games live (optional)
-BIOS_ROOT=$GAMES_ROOT/Bios                 # BIOS files (flat or one level of subdirs)
+GAMES_ROOT=/your/roms/directory      # where your ROMs/games live (optional)
+BIOS_ROOT=/your/bios/directory                 # BIOS files (flat or one level of subdirs)
 ```
 
 The scripts never hardcode paths — changing `GAMES_ROOT` and re-running
 `setup.sh` is all it takes to point at a different drive.
 
-`GAMES_ROOT` is optional: leave it empty (`GAMES_ROOT=`) or comment it out if
-you don't keep games on a separate drive. The mount check, the volume mount
+`GAMES_ROOT` is optional. The mount check, the volume mount
 into the box, the `~/Games` symlink, BIOS linking and the Steam ROM Manager
 setup are all skipped in that case — everything else works as usual.
+`BIOS_ROOT` is also optional.
 
 ## Storage caveats
 
@@ -102,6 +101,11 @@ distrobox enter gaming                    # or just get a shell inside the box
 ROMs are visible inside the box at the same path as on the host, and via the
 `~/Games` symlink in the box home. BIOS files are already linked, so the
 emulators find them without any setup.
+
+### Game Mode
+You can install game mode from /gamemode/install.sh
+Click [here](/docs/gamemode.md) to see more information.
+
 
 ### Adding ROMs to Steam (console-style library)
 
@@ -151,7 +155,7 @@ which is root-only by default. Install the udev rules **on the host** (not in
 the box — udev runs on the host):
 
 ```sh
-sudo pacman -S game-devices-udev    # CachyOS/AUR; on other distros: steam-devices
+paru -S game-devices-udev    # AUR
 ```
 
 Then reconnect the controller. Without this, plain controller input still
