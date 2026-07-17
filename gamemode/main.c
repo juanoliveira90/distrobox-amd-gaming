@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
 
     bool done = false;
 
-    SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL3
+    SDL_Init(SDL_INIT_VIDEO | SDL_INIT_GAMEPAD);              // Initialize SDL3
 
     window = SDL_CreateWindow(
         "Game mode Prompt",                  
