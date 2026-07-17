@@ -26,7 +26,7 @@ fi
 # Steam Input needs /dev/uinput access, granted by host-side udev rules.
 if command -v pacman >/dev/null && ! pacman -Qq game-devices-udev >/dev/null 2>&1 \
     && ! pacman -Qq steam-devices >/dev/null 2>&1; then
-  warn "game-devices-udev not installed on the host — Steam Input (controller remapping) won't work until you run: sudo pacman -S game-devices-udev"
+  warn "game-devices-udev not installed on the host — Steam Input (controller remapping) might not work properly until you run: yay -S game-devices-udev"
 fi
 
 log "host checks passed"
