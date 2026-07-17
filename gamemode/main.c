@@ -115,7 +115,7 @@ int main(int argc, char* argv[]) {
         
 
         if (confirmed == 0 ) { // yes
-            system("distrobox enter linux-gaming -- sudo openvt -c 3 -s -w -- /usr/bin/gamescope -w 1920 -h 1080 -r 144 -f -- /usr/bin/steam -tenfoot");
+            system("sudo systemctl start gamemode.service");
             return 0;
         }
         else if (confirmed == 1) { // no

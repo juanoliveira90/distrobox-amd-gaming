@@ -18,6 +18,7 @@ distrobox create \
   --name "$BOX_NAME" \
   --image "$BOX_IMAGE" \
   --home "$BOX_HOME" \
+  --additional-flags "--tmpfs /tmp/.X11-unix" \
   "${volume_args[@]}"
 
 # First enter triggers distrobox's in-container setup (user, sudo, mounts).
