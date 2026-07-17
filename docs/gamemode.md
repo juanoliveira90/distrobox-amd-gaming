@@ -1,9 +1,9 @@
 # Game Mode
 ****
-This project includes "game mode", which aims to provide a better exeperience for gaming on linux. it's a simple SDL program that ask you what console-like front end you want to start, and it will open it in a separate session (tty4 or tty5) with Gamescope as its compositor. You can use a controller or a keyboard to control it.
-****
-![game mode prompt]()
-****
+This project includes "game mode", which aims to provide a better experience for gaming on linux. it's a simple SDL program that ask you what console-like front end you want to start, and it will open it in a separate session (tty4 or tty5) with Gamescope as its compositor. You can use a controller or a keyboard to control it.
+
+<img width="640" height="479" alt="image" src="https://github.com/user-attachments/assets/bd93d23f-9eec-4f8b-af0e-013e56bdda5a" />
+
 ## Installation
 In order for this to work properly, you'll need to set some things up.
 ### Adding it to PATH
@@ -49,7 +49,7 @@ TTYPath=/dev/tty4
 StandardInput=tty
 StandardOutput=journal
 StandardError=journal
-UtmpIdentifier=tty5
+UtmpIdentifier=tty4
 UtmpMode=user
 ExecStartPre=/usr/bin/chvt 4
 ExecStart=/usr/bin/distrobox enter linux-gaming -- /usr/bin/gamescope -w 1920 -h 1080 -r 144 -f -- /usr/bin/steam -tenfoot
