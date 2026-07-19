@@ -22,15 +22,17 @@ else
   fail=1
 fi
 
-for bin in pcsx2-qt duckstation-qt rpcs3 steam heroic lutris mangohud gamescope; do
+for bin in pcsx2-qt duckstation-qt rpcs3 steam heroic lutris mangohud gamescope es-de; do
   check "$bin in box" in_box which "$bin"
 done
 
 check "PS1 BIOS linked (DuckStation)" test -e "$BOX_HOME/.local/share/duckstation/bios/SCPH1001.BIN"
 check "PS2 BIOS dir populated (PCSX2)" bash -c "ls \"$BOX_HOME/.config/PCSX2/bios/\"*.BIN"
 
+# Exported file names keep the box's desktop file name (e.g. ES-DE exports as
+# gaming-org.es_de.frontend.desktop), so treat '-' and '_' as equivalent.
 for app in "${EXPORT_APPS[@]}"; do
-  check "host desktop entry for $app" bash -c "ls \"$HOME/.local/share/applications/\"*\"$app\"*.desktop"
+  check "host desktop entry for $app" bash -c "ls \"$HOME/.local/share/applications/\" | grep -qi -- '${app//-/[-_]}'"
 done
 
 if [ "$fail" -eq 0 ]; then
